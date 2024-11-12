@@ -1,5 +1,5 @@
 # ベースイメージを指定 (Javaのランタイムを含む)
-FROM openjdk:11-jdk-alpine
+FROM openjdk:17-jdk-alpine
 
 # 作業ディレクトリを設定
 WORKDIR /app
