@@ -1,14 +1,7 @@
-# ベースイメージを指定 (Javaのランタイムを含む)
-FROM openjdk:17-jdk-alpine
-
-# 作業ディレクトリを設定
-WORKDIR /app
-
-# JARファイルをコピー
-COPY target/*.jar app.jar
-
-# ポートを公開 (アプリケーションが使用するポートに合わせて調整)
+FROM maven: 4-eclipse-temurin-17 AS build
+COPY ./ C:\pleiades\2024-09\workspace\workTask
+RUN cd /home/appC:\pleiades\2024-09\workspace\workTask && mvn clean package -Dmaven.test.skip=true
+FROM eclipse-temurin:17-alpine
+COPY --from=build C:\pleiades\2024-09\workspace\workTasktarget/spring-practice-0.0.1-SNAPSHOT.jar /usr/local/lib/demo.jar
 EXPOSE 8080
-
-# コンテナ起動時に実行するコマンド
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/demo.jar"]
