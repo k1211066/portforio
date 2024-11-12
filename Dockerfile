@@ -1,7 +1,14 @@
-FROM maven:3-eclipse-temurin-17 AS build
-COPY . .
-RUN mvn clean package -Dmaven.test.skip=true
-FROM eclipse-temurin:17-alpine
-COPY --from=build /target/work-0.0.1-SNAPSHOT.jar demo.jar
+# ベースイメージを指定 (Javaのランタイムを含む)
+FROM openjdk:11-jdk-alpine
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# JARファイルをコピー
+COPY target/*.jar app.jar
+
+# ポートを公開 (アプリケーションが使用するポートに合わせて調整)
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+
+# コンテナ起動時に実行するコマンド
+ENTRYPOINT ["java","-jar","/app.jar"]
