@@ -1,4 +1,4 @@
-FROM maven:4-eclipse-temurin-17 AS build
+FROM maven:3-eclipse-temurin-17 AS build
 COPY ./ C:/pleiades/2024-09/workspace/workTask
 RUN cd C:/pleiades/2024-09/workspace/workTask && mvn clean package -Dmaven.test.skip=true
 FROM eclipse-temurin:17-alpine
